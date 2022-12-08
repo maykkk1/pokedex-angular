@@ -1,0 +1,21 @@
+
+
+.description {
+    height: 100px;
+    text-align: center;
+}
+
+.types {
+    margin-top: 15px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.types p {
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-transform: capitalize;
+    color: rgb(107, 99, 99);
+}
