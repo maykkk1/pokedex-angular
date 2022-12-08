@@ -8,18 +8,22 @@ import { PokedexListComponent } from './pokedex-list/pokedex-list.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PokedexItemComponent } from './pokedex-item/pokedex-item.component';
 import { PokedexService } from './pokedex.service';
+import { HeaderComponent } from './header/header.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     PokedexListComponent,
-    PokedexItemComponent
+    PokedexItemComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    NgbModule
+    NgbModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

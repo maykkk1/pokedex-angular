@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { map, retry } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { map, retry, Subscription } from 'rxjs';
 import { PokedexService } from '../pokedex.service';
 import { Pokemon } from '../shared/pokemon.model';
 
@@ -10,14 +10,22 @@ import { Pokemon } from '../shared/pokemon.model';
   templateUrl: './pokedex-list.component.html',
   styleUrls: ['./pokedex-list.component.css']
 })
-export class PokedexListComponent implements OnInit {
+export class PokedexListComponent implements OnInit, OnDestroy {
+  subs: Subscription;
 
   pokemons: Pokemon[];
 
   constructor(private pokedexService: PokedexService) { 
     this.pokemons = pokedexService.getPokemons();
-   }
+    }
+  ngOnInit(): void {
+    this.subs = this.pokedexService.pokemonsListChanged.subscribe(change => {
+      this.pokemons = this.pokedexService.getPokemons();
+    })
+  }
 
-  ngOnInit(): void {}
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
+  }
 
 }

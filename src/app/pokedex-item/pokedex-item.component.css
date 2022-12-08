@@ -1,4 +1,6 @@
-
+.card {
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.326);
+}
 
 .description {
     height: 100px;
@@ -6,7 +8,6 @@
 }
 
 .types {
-    margin-top: 15px;
     width: 100%;
     display: flex;
     flex-wrap: wrap;
@@ -18,4 +19,13 @@
     border-radius: 5px;
     text-transform: capitalize;
     color: rgb(107, 99, 99);
+}
+
+.description > .row > .col-md-4 {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.description > .row > .col-md-4 > span {
+    margin-top: 8px;
 }

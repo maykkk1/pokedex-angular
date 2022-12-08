@@ -1,5 +1,12 @@
 <div class="container">
-    <h1 align="center">Pokedex</h1>
-<hr>
-<app-pokedex-list *ngIf="!isPokemonsLoad"></app-pokedex-list>
+<div class="row">
+    <div class="col-md-12">
+        <app-header></app-header>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <app-pokedex-list *ngIf="!isPokemonsLoad"></app-pokedex-list>
+    </div>
+</div>
 </div>

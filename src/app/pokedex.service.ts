@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { retry } from "rxjs";
+import { Subject } from "rxjs";
 import { Pokemon } from "./shared/pokemon.model";
 
 interface ResponsePokedex {
@@ -15,8 +15,12 @@ interface ResponsePokedex {
 
 @Injectable({providedIn: 'root'})
 export class PokedexService {
-    constructor(private http: HttpClient) {}
     pokemons: Pokemon[] = [];
+    pokemonsData: Pokemon[] = [];
+    pokemonsListChanged = new Subject<void>;
+
+
+    constructor(private http: HttpClient) {}
 
 
     getPokemons() {
@@ -24,7 +28,7 @@ export class PokedexService {
     }
 
     fetchPokemons() {
-        for(let i =0;i<150;i++) {
+        for(let i =0;i<230;i++) {
             this.http.get<ResponsePokedex>(`https://pokeapi.co/api/v2/pokemon/${i+1}/`)
                 .toPromise()
                 .then(data => {
@@ -47,6 +51,8 @@ export class PokedexService {
                         this.pokemons.sort(function(a, b) { 
                             return a.id - b.id  ||  a.name.localeCompare(b.name);
                           });
+                        this.pokemonsData = this.pokemons.slice();
+                        
                     }
                 })
         }
@@ -89,6 +95,15 @@ export class PokedexService {
             return 'rgba(64, 224, 208, .5)'
         }    
         return 'rgba(0, 0, 0, .5)'
+    }
+
+    filterPokemons(filtro: string) {
+        if(filtro.length == 0) {
+            this.pokemons = this.pokemonsData.slice()
+            return this.pokemonsListChanged.next();
+        }
+        this.pokemons = this.pokemonsData.filter(p => p.name.startsWith(filtro))
+        return this.pokemonsListChanged.next()
     }
 
 }

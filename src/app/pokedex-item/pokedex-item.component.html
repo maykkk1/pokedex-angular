@@ -5,14 +5,22 @@
   >
     <img class="card-img-top" [src]="pokemon.imgUrl" alt="Card image cap">
     <div class="card-body">
+      <hr>
       <div class="description">
         <h2> {{ pokemon.name | uppercase }}</h2>
-        <div class="types">
-          <p *ngFor="let item of pokemon.types"
-             [ngStyle]="{'backgroundColor': item.color}"
-          >
-            {{ item.name }}
-          </p>
+        <div class="row">
+          <div class="col-md-8">
+            <div class="types">
+              <p *ngFor="let item of pokemon.types"
+                 [ngStyle]="{'backgroundColor': item.color}"
+              >
+                {{ item.name }}
+              </p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <span>#{{ pokemon.id }}</span>
+          </div>
         </div>
       </div>
     </div>

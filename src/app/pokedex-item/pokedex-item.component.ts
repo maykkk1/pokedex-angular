@@ -10,12 +10,10 @@ export class PokedexItemComponent implements OnInit {
   @Input() pokemon: Pokemon;
   boxShadow: string;
 
-
   constructor() { }
 
   ngOnInit(): void {
     this.boxShadow = `linear-gradient(to bottom left, ${this.pokemon.types[0].color}, rgba(0, 0, 0, 0))`
-    console.log(this.boxShadow)
   }
 
 }
