@@ -16,15 +16,14 @@ interface ResponsePokedex {
 @Injectable({providedIn: 'root'})
 export class PokedexService {
     pokemons: Pokemon[] = [];
-    pokemonsData: Pokemon[] = [];
-    pokemonsListChanged = new Subject<void>;
+    pokemonsListChanged = new Subject<Pokemon[]>;
 
 
     constructor(private http: HttpClient) {}
 
 
     getPokemons() {
-        return this.pokemons;
+        return this.pokemons.slice();
     }
 
     fetchPokemons() {
@@ -51,8 +50,7 @@ export class PokedexService {
                         this.pokemons.sort(function(a, b) { 
                             return a.id - b.id  ||  a.name.localeCompare(b.name);
                           });
-                        this.pokemonsData = this.pokemons.slice();
-                        
+                        this.pokemonsListChanged.next(this.pokemons.slice());
                     }
                 })
         }
@@ -99,11 +97,10 @@ export class PokedexService {
 
     filterPokemons(filtro: string) {
         if(filtro.length == 0) {
-            this.pokemons = this.pokemonsData.slice()
-            return this.pokemonsListChanged.next();
+            return this.pokemonsListChanged.next(this.pokemons.slice());
         }
-        this.pokemons = this.pokemonsData.filter(p => p.name.startsWith(filtro))
-        return this.pokemonsListChanged.next()
+       const pokemonFilter = this.pokemons.filter(p => p.name.startsWith(filtro))
+        return this.pokemonsListChanged.next(pokemonFilter)
     }
 
 }
